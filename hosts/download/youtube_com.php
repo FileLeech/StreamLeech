@@ -312,9 +312,7 @@ class youtube_com extends DownloadClass {
         $AC = array('AAC', 'Vorbis', 'MP3');
         $AB = array(192, 128, 96, 64, 36, 24);
         $vinfo = array(38 => '0000', 37 => '1000', 46 => '1110', 22 => '2000', 45 => '2110', 44 => '3111', 35 => '3201', 43 => '4111', 34 => '4201', 18 => '4002', 6 => '5223', 5 => '6223', 36 => '6304', 17 => '7305'); // VR VC AC AB
-
         $sources = new stdClass();
-
         foreach ($this->fmturlmaps as $fmt => $url) {
             if (in_array($fmt, $this->fmts) && ($I = str_split($vinfo[$fmt]))) {
                 //echo '<option ' . ($fmt == 18 ? "selected='selected' " : '') . "value='$fmt'>[$fmt] Video: {$VC[$I[1]]} {$VR[$I[0]]}p | Audio: {$AC[$I[2]]} ~{$AB[$I[3]]} kbps" . (!empty($sizes[$fmt]) ? ' (' . $sizes[$fmt] . ')' : '') . "</option>\n";
