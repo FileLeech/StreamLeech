@@ -7,7 +7,7 @@
  * en itzapeke@hotmail.es o coil811122@icloud.com
  */
 //$_POST['link'] = 'http://ma.digitalplayground.com/movies/info/29642/prey-for-the-dying/';
-$_POST['link'] = 'https://www.youtube.com/watch?v=My2FRPA3Gf8';
+$_POST['link'] = 'https://www.youtube.com/watch?v=4VG66HqF12w';
 //$_POST['link']='https://my.mail.ru/mail/alealex77/video/_myvideo/22.html';
 $_GET = $_POST;
 require_once('pages/rl_init.php');
@@ -43,11 +43,7 @@ if ($LINK != '') {
             if (class_exists($class)) {
                 $hostClass = new $class();
                 $hostClass->Download($LINK);
-            } else {
-                html_error("No contamos con soporte para este servidor: " . str_replace("_", ".", $class));
             }
-        } else {
-            html_error("No contamos con soporte para este servidor: " . $Url['host']);
         }
     }
 }

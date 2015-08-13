@@ -173,7 +173,7 @@ function html_error($msg) {
         if (!empty($GLOBALS['options']['new_window']))
             echo '<a href="javascript:window.close();">' . lang(378) . '</a>';
         else
-            echo '';//echo '<a href="/">' . lang(13) . '</a>';
+            echo ''; //echo '<a href="/">' . lang(13) . '</a>';
         echo '</div>';
     }
     pause_download();
@@ -616,6 +616,33 @@ function GetDefaultParams() {
         if (!empty($_GET[$key]))
             $DParam[$key] = $_GET[$key];
     return $DParam;
+}
+
+function sourcesJW($sources, $defaultquality = 360, $type = 'video/mp4') {
+    $code = '';
+    foreach ($sources as $key => $value) {
+        $default = '';
+        if ($key == $defaultquality) {
+            $default = "'default': 'true',\n";
+        }
+        if ($key > 360) {
+            $label = $key . ' HD';
+        } else {
+            $label = $key . ' SD';
+        }
+        if ($code == '') {
+            $code = "{\nfile: '" . $value . "',\nlabel: '" . $label . "',\n" . $default . "type: '" . $type . "'\n}";
+        } else {
+            $code .= ",{\nfile: '" . $value . "',\nlabel: '" . $label . "',\n" . $default . "type: '" . $type . "'\n}";
+        }
+    }
+
+    if ($code != '') {
+        echo "\n<script>\n"
+        . "var sources_player=[" . $code . "];"
+        . "\n</script>";
+        return true;
+    }
 }
 
 ?>

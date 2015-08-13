@@ -11,8 +11,7 @@ class DownloadClass {
      */
 
     public function __construct($echo = true) {
-        if (!$echo)
-            return;
+        
     }
 
     /*
@@ -138,11 +137,11 @@ class DownloadClass {
      */
 
     public function EnterCaptcha($captchaImg, $inputs, $captchaSize = '5', $sname = 'Enter Captcha', $iname = 'captcha') {
-        echo "\n<form name='captcha' action='' method='POST'>\n";
+        echo "\n<form name='captcha' action='{$GLOBALS['PHP_SELF']}' method='POST'>\n";
         foreach ($inputs as $name => $input)
             echo "\t<input type='hidden' name='$name' id='$name' value='" . htmlspecialchars($input, ENT_QUOTES) . "' />\n";
         echo "\t<h4>" . lang(301) . " <img alt='CAPTCHA Image' src='$captchaImg' /> " . lang(302) . ": <input id='captcha' type='text' name='$iname' size='$captchaSize' />&nbsp;&nbsp;\n\t\t<input type='submit' onclick='return check();' value='$sname' />\n\t</h4>\n\t<script type='text/javascript'>/* <![CDATA[ */\n\t\tfunction check() {\n\t\t\tvar captcha=document.getElementById('captcha').value;\n\t\t\tif (captcha == '') {\n\t\t\t\twindow.alert('You didn\'t enter the image verification code');\n\t\t\t\treturn false;\n\t\t\t} else return true;\n\t\t}\n\t/* ]]> */</script>\n</form>\n";
-
+        include(TEMPLATE_DIR . 'footer.php');
         exit();
     }
 
@@ -183,7 +182,7 @@ class DownloadClass {
 
     public function JSCountdown($secs, $post = 0, $text = 'Waiting link timelock', $stop = 1) {
         echo "<p><center><span id='dl' class='htmlerror'><b>ERROR: Please enable JavaScript. (Countdown)</b></span><br /><span id='dl2'>Please wait</span></center></p>\n";
-        echo "<form action='' name='cdwait' method='POST'>\n";
+        echo "<form action='{$GLOBALS['PHP_SELF']}' name='cdwait' method='POST'>\n";
         if (!empty($post) && is_array($post))
             foreach ($post as $name => $input)
                 echo "<input type='hidden' name='$name' id='C_$name' value='" . htmlspecialchars($input, ENT_QUOTES) . "' />\n";
@@ -206,12 +205,11 @@ class DownloadClass {
                             setTimeout("fc()", 1000);
                         } else {
                             dl.style.display = "none";
-                            void(<?php
-            if (!empty($post))
-                echo 'document.forms.cdwait.submit()';
-            else
-                echo 'location.reload()';
-            ?>);
+                            void(<?php if (!empty($post))
+            echo 'document.forms.cdwait.submit()';
+        else
+            echo 'location.reload()';
+        ?>);
                         }
                     }
                     function fc2() {
@@ -230,7 +228,7 @@ class DownloadClass {
                     }<?php
             echo "/* ]]> */</script></form><br />";
             if ($stop) {
-
+                include(TEMPLATE_DIR . 'footer.php');
                 exit();
             }
         }
@@ -254,10 +252,11 @@ class DownloadClass {
 
             if (strpos($page, 'Invalid referer') === false && strpos($page, 'An internal error occurred') === false) {
                 // Embed captcha
-                echo "<script language='JavaScript'>var RecaptchaOptions = {theme:'red', lang:'en'};</script>\n\n<center><form name='recaptcha' action='' method='POST'><br />\n";
+                echo "<script language='JavaScript'>var RecaptchaOptions = {theme:'red', lang:'en'};</script>\n\n<center><form name='recaptcha' action='{$GLOBALS['PHP_SELF']}' method='POST'><br />\n";
                 foreach ($inputs as $name => $input)
                     echo "<input type='hidden' name='$name' id='C_$name' value='" . htmlspecialchars($input, ENT_QUOTES) . "' />\n";
                 echo "<script type='text/javascript' src='http://www.google.com/recaptcha/api/challenge?k=$publicKey'></script><noscript><iframe src='http://www.google.com/recaptcha/api/noscript?k=$publicKey' height='300' width='500' frameborder='0'></iframe><br /><textarea name='recaptcha_challenge_field' rows='3' cols='40'></textarea><input type='hidden' name='recaptcha_response_field' value='manual_challenge' /></noscript><br /><input type='submit' name='submit' onclick='javascript:return checkc();' value='$sname' />\n<script type='text/javascript'>/*<![CDATA[*/\nfunction checkc(){\nvar capt=document.getElementById('recaptcha_response_field');\nif (capt.value == '') { window.alert('You didn\'t enter the image verification code.'); return false; }\nelse { return true; }\n}\n/*]]>*/</script>\n</form></center>\n";
+                include(TEMPLATE_DIR . 'footer.php');
             } else {
                 // Download captcha
                 $page = $this->GetPage('http://www.google.com/recaptcha/api/challenge?k=' . $publicKey, $cookie, 0, $referer);
@@ -388,24 +387,4 @@ class DownloadClass {
                 return array('g-recaptcha-response' => urlencode($gibberish[1]));
         }
 
-        public function CookieArchivo($name, $line) {
-            $archivoDestino = "./cookies/" . $name . ".txt";
-            if (!$archivo = fopen($archivoDestino, 'w')) {
-                echo "No se pudo crear $archivoDestion";
-                exit;
-            }
-            if (fwrite($archivo, $line) === false) {
-                echo "No se pudo escribir en $archivoDestino";
-                exit;
-            }
-            fclose($archivo);
-        }
-
-        public function setJSMedia($name, $data) {
-            echo "\n<script>\n"
-            . $name . " =" . $data . ";\n"
-            . "</script>\n";
-        }
-
     }
-    ?>
