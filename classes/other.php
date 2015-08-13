@@ -618,6 +618,10 @@ function GetDefaultParams() {
     return $DParam;
 }
 
+function jsCode($js) {
+    echo "\n<script>\n" . $js . "\n</script>";
+}
+
 function sourcesJW($sources, $defaultquality = 360, $type = 'video/mp4') {
     $code = '';
     foreach ($sources as $key => $value) {
@@ -639,7 +643,7 @@ function sourcesJW($sources, $defaultquality = 360, $type = 'video/mp4') {
 
     if ($code != '') {
         echo "\n<script>\n"
-        . "var sources_player=[" . $code . "];"
+        . "\tsources_player=[" . $code . "];"
         . "\n</script>";
         return true;
     }

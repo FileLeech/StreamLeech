@@ -318,13 +318,14 @@ class youtube_com extends DownloadClass {
         foreach ($this->fmturlmaps as $fmt => $url) {
             if (in_array($fmt, $this->fmts) && ($I = str_split($vinfo[$fmt]))) {
                 //echo '<option ' . ($fmt == 18 ? "selected='selected' " : '') . "value='$fmt'>[$fmt] Video: {$VC[$I[1]]} {$VR[$I[0]]}p | Audio: {$AC[$I[2]]} ~{$AB[$I[3]]} kbps" . (!empty($sizes[$fmt]) ? ' (' . $sizes[$fmt] . ')' : '') . "</option>\n";
-                if ($VC[$I[1]] == 'MP4') {                    
+                if ($VC[$I[1]] == 'MP4') {
                     $sources->$VR[$I[0]] = $url;
                 }
             }
         }
-        if(sourcesJW($sources)){
-            
+        if (sourcesJW($sources)) {
+            $id = str_replace("https://www.youtube.com/watch?v=", "", $this->link);
+            jsCode("img_player = 'https://i.ytimg.com/vi/" . $id . "/hqdefault.jpg';");
         }
     }
 
