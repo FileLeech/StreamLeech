@@ -25,9 +25,13 @@
                 width: 100%;
                 height: 100%;
                 border-radius: 4px;
-                background: #333333;
-                opacity: 0.4;
+                background: #000;
+                opacity: 0.8;
                 margin-left: auto;
+            }
+            .publicidad a{
+                display: block;
+                color: #fff;
             }
         </style>
     </head>
@@ -73,7 +77,7 @@
                     }
                     LeechPlayer.on("ready", function () {
                         if (LeechPlayer.getRenderingMode() == 'html5') {
-                          $("#StreamLeech").append('<div class="publicidad">mexico</div>');
+                            $("#StreamLeech").append('<div class="publicidad" id="publicidad">' + $('.base_publicidad').html() + '</div>');
                         }
                     });
                 } catch (e) {
@@ -82,3 +86,32 @@
             }
         </script>
     <center><div id="StreamLeech" class="StreamLeech"></div></center>
+    <div class="base_publicidad" style="display: none;">
+        <center>
+            <script type="text/javascript">
+                ad_idzone = "1619004";
+                ad_width = "468";
+                ad_height = "60";
+            </script>
+            <script type="text/javascript" src="https://ads.exoclick.com/ads.js"></script>
+            <noscript><a href="http://main.exoclick.com/img-click.php?idzone=1619004" target="_blank"><img src="https://syndication.exoclick.com/ads-iframe-display.php?idzone=1619004&output=img&type=468x60" width="468" height="60"></a></noscript>
+
+            <a onclick="$('.publicidad').remove(); jwplayer().play();" href="http://syndication.exoclick.com/splash.php?idzone=1619012&type=9&return_url=http%3A%2F%2Fwww.streamleech.ga%2F" target="_blank">Clic Para Reproducir</a>
+
+            <script type="text/javascript">
+                ad_idzone = "1619010";
+                ad_width = "300";
+                ad_height = "250";
+            </script>
+            <script type="text/javascript" src="https://ads.exoclick.com/ads.js"></script>
+            <noscript><a href="http://main.exoclick.com/img-click.php?idzone=1619010" target="_blank"><img src="https://syndication.exoclick.com/ads-iframe-display.php?idzone=1619010&output=img&type=300x250" width="300" height="250"></a></noscript>
+
+            <script type="text/javascript">
+                ad_idzone = "1619008";
+                ad_width = "468";
+                ad_height = "60";
+            </script>
+            <script type="text/javascript" src="https://ads.exoclick.com/ads.js"></script>
+            <noscript><a href="http://main.exoclick.com/img-click.php?idzone=1619008" target="_blank"><img src="https://syndication.exoclick.com/ads-iframe-display.php?idzone=1619008&output=img&type=468x60" width="468" height="60"></a></noscript>
+        </center>
+    </div>
